@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  creationTimestamp: null
   name: d-ingress
-  namespace: default
 spec:
   ingressClassName: nginx
   rules:
@@ -13,7 +13,7 @@ spec:
           service:
             name: ng-service
             port:
-              number: 8080
+              number: 80
         path: /
         pathType: Exact
 status:
