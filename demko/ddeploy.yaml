@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: ddeploy
-  name: ddeploy
+    app: ng-deploy
+  name: ng-deploy
 spec:
   replicas: 5
   selector:
     matchLabels:
-      app: ddeploy
+      app: ng-app
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: ddeploy
+        app: ng-app
     spec:
       containers:
       - image: nginx
