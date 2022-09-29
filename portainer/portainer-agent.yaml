@@ -3,13 +3,13 @@ kind: Service
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2022-09-27T23:38:10Z","labels":{"app.kubernetes.io/instance":"portainer"},"name":"portainer-agent","namespace":"portainer","resourceVersion":"2185831","uid":"b38c2ce5-b65d-4e83-865e-567b91817c07"},"spec":{"clusterIP":"10.109.10.237","clusterIPs":["10.109.10.237"],"externalIPs":["10.241.118.102"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"port":9001,"protocol":"TCP","targetPort":9001}],"selector":{"app":"portainer-agent"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
+      {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2022-09-29T20:49:21Z","labels":{"app.kubernetes.io/instance":"portainer"},"name":"portainer-agent","namespace":"portainer","resourceVersion":"2217017","uid":"e239a10c-6700-440a-b4a7-1f3a4b7c35a7"},"spec":{"clusterIP":"10.109.10.237","clusterIPs":["10.109.10.237"],"externalIPs":["10.241.118.102"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","ports":[{"port":9001,"protocol":"TCP","targetPort":9001}],"selector":{"app":"portainer-agent"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
   creationTimestamp: "2022-09-29T20:49:21Z"
   labels:
     app.kubernetes.io/instance: portainer
   name: portainer-agent
   namespace: portainer
-  resourceVersion: "2217017"
+  resourceVersion: "2217737"
   uid: e239a10c-6700-440a-b4a7-1f3a4b7c35a7
 spec:
   clusterIP: 10.109.10.237
