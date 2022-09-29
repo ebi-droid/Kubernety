@@ -49,22 +49,3 @@ spec:
       serviceAccount: portainer-sa-clusteradmin
       serviceAccountName: portainer-sa-clusteradmin
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-    - lastTransitionTime: '2022-09-27T21:40:17Z'
-      lastUpdateTime: '2022-09-27T21:40:20Z'
-      message: ReplicaSet "portainer-agent-758674df8d" has successfully progressed.
-      reason: NewReplicaSetAvailable
-      status: 'True'
-      type: Progressing
-    - lastTransitionTime: '2022-09-29T16:31:22Z'
-      lastUpdateTime: '2022-09-29T16:31:22Z'
-      message: Deployment has minimum availability.
-      reason: MinimumReplicasAvailable
-      status: 'True'
-      type: Available
-  observedGeneration: 5
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
