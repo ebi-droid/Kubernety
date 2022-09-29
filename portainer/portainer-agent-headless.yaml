@@ -4,11 +4,11 @@ metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"creationTimestamp":"2022-09-27T21:29:03Z","name":"portainer-agent-headless","namespace":"portainer","resourceVersion":"1848299","uid":"944d5df9-f107-4f9a-89ac-84acf51f13d6"},"spec":{"clusterIP":"None","clusterIPs":["None"],"internalTrafficPolicy":"Cluster","ipFamilies":["IPv4"],"ipFamilyPolicy":"SingleStack","selector":{"app":"portainer-agent"},"sessionAffinity":"None","type":"ClusterIP"},"status":{"loadBalancer":{}}}
-  creationTimestamp: "2022-09-27T21:29:03Z"
+  
   name: portainer-agent-headless
   namespace: portainer
-  resourceVersion: "2140298"
-  uid: 944d5df9-f107-4f9a-89ac-84acf51f13d6
+  
+  
 spec:
   clusterIP: None
   clusterIPs:
