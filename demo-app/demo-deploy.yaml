@@ -56,7 +56,7 @@ items:
       type: Progressing
     observedGeneration: 1
     readyReplicas: 3
-    replicas: 4
+    replicas: 5
     updatedReplicas: 3
 kind: List
 metadata:
