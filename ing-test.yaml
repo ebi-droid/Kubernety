@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: null
+  name: ingdefault
+spec:
+  defaultBackend:
+    service:
+      name: defaultsvc
+      port:
+        name: http
+  ingressClassName: default
+  rules:
+  - host: foo.com
+    http:
+      paths:
+      - backend:
+          service:
+            name: svc
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - foo.com
+    secretName: secret1
+status:
+  loadBalancer: {}
