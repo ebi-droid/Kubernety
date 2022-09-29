@@ -23,11 +23,13 @@ items:
       -----END CERTIFICATE-----
   kind: ConfigMap
   metadata:
-
+    creationTimestamp: "2022-09-28T00:26:01Z"
     labels:
       istio.io/config: "true"
     name: istio-ca-root-cert
     namespace: portainer
+    resourceVersion: "1862849"
+    uid: d37c26bb-7260-4136-888b-ecc4caf441f0
 - apiVersion: v1
   data:
     ca.crt: |
@@ -57,11 +59,11 @@ items:
         kube-apiserver when using internal endpoints such as the internal service
         IP or kubernetes.default.svc. No other usage is guaranteed across distributions
         of Kubernetes clusters.
-    
+    creationTimestamp: "2022-09-27T21:29:03Z"
     name: kube-root-ca.crt
     namespace: portainer
-    
-    
+    resourceVersion: "1848290"
+    uid: 0c4841a6-bfd4-4ece-94f5-b3ef3b394938
 kind: List
 metadata:
   resourceVersion: ""
