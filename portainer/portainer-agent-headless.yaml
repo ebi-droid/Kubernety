@@ -9,7 +9,6 @@ metadata:
     app.kubernetes.io/instance: portainer
   name: portainer-agent-headless
   namespace: portainer
-  resourceVersion: '2213437'
   uid: 944d5df9-f107-4f9a-89ac-84acf51f13d6
 spec:
   clusterIP: None
