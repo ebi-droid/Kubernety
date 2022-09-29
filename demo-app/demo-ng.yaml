@@ -15,7 +15,7 @@ metadata:
     service.istio.io/canonical-revision: latest
   name: demonstracyjna-apka
   namespace: default
-spec:
+  spec:
   containers:
   - image: nginx
     imagePullPolicy: Always
