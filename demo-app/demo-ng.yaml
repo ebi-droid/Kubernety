@@ -14,7 +14,7 @@ metadata:
     security.istio.io/tlsMode: istio
     service.istio.io/canonical-name: demo-ng
     service.istio.io/canonical-revision: latest
-  name: demo-ng
+  name: demonstracyjna-apka
   namespace: default
   resourceVersion: "2143115"
   uid: fc40c5e8-b85c-4a37-a7db-41db9ca96bd0
