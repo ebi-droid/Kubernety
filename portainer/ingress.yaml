@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  creationTimestamp: "2022-09-27T23:00:20Z"
+  generation: 1
+  name: portainer-agent-ingress
+  namespace: portainer
+  resourceVersion: "2155018"
+  uid: 399f9b98-3cec-462d-bccf-76dd67c74cdd
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: portainer.cx.one.pl
+    http:
+      paths:
+      - backend:
+          service:
+            name: portainer-agent
+            port:
+              number: 9001
+        path: /
+        pathType: Exact
+status:
+  loadBalancer:
+    ingress:
+    - ip: 10.241.118.102
