@@ -3,15 +3,15 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: ddeploy
+    app: ng-service
     app.kubernetes.io/instance: demko
-  name: ddeploy
+  name: ng-service
 spec:
   ports:
   - port: 8080
     protocol: TCP
     targetPort: 80
   selector:
-    app: ddeploy
+    app: ng-app
 status:
   loadBalancer: {}
