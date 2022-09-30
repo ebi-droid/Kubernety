@@ -6,7 +6,7 @@ metadata:
     app: ng-deploy
   name: ng-deploy
 spec:
-  replicas: 3
+  replicas: 4
   selector:
     matchLabels:
       app: ng-app
@@ -18,7 +18,7 @@ spec:
         app: ng-app
     spec:
       containers:
-      - image: nginx:stable-alpine
+      - image: nginx:1.22
         name: nginx
         resources: {}
 status: {}
