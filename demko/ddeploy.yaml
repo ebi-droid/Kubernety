@@ -18,7 +18,7 @@ spec:
         app: ng-app
     spec:
       containers:
-      - image: nginx:alpine
+      - image: nginx:stable-alpine
         name: nginx
         resources: {}
 status: {}
