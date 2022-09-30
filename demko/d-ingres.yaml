@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: d-ingress
-  namespace: default
+  namespace: demko
 spec:
   ingressClassName: nginx
   rules:
