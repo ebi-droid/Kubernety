@@ -13,3 +13,7 @@ spec:
     repoURL: 'https://github.com/ebi-droid/Kubernety.git'
     targetRevision: HEAD
   project: 'default'
+  syncPolicy:
+    automated:
+      selfHeal: false
+      prune: false
