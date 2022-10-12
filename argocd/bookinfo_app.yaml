@@ -1,0 +1,15 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: 'bookinfo'
+spec:
+  destination:
+    name: ''
+    namespace: 'default'
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: apps/bookinfo
+    repoURL: 'https://github.com/ebi-droid/Kubernety.git'
+    targetRevision: HEAD
+  project: 'default'
