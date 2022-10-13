@@ -32,9 +32,27 @@ spec:
     - mountPath: /data
       name: localvolume # Corresponds to the `spec.volumes` Persistent Volume
   nodeSelector:
-    kubernetes.io/hostname: node3 # Specify a node label associated to the Worker Node on which you want to deploy the pod.
+    kubernetes.io/hostname: node1 # Specify a node label associated to the Worker Node on which you want to deploy the pod.
   volumes:
   - name: localvolume
     hostPath: # MinIO generally recommends using locally-attached volumes
       path: /mnt/disk1/data # Specify a path to a local drive or volume on the Kubernetes worker node
       type: DirectoryOrCreate # The path to the last directory must exist
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: minio
+  name: minio
+  namespace: minio-dev
+spec:
+  ports:
+  - port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: minio
+status:
+  loadBalancer: {}
