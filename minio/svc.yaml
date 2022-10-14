@@ -1,0 +1,85 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"labels":{"name":"console"},"name":"console","namespace":"minio-operator"},"spec":{"ports":[{"name":"http","port":9090},{"name":"https","port":9443}],"selector":{"app":"console"}}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    labels:
+      name: console
+    name: console
+    namespace: minio-operator
+    resourceVersion: "4880080"
+    uid: cf0b6315-9aa1-4116-b1ca-1ca8dd3ae5be
+  spec:
+    clusterIP: 10.96.138.33
+    clusterIPs:
+    - 10.96.138.33
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: 9090
+    - name: https
+      port: 9443
+      protocol: TCP
+      targetPort: 9443
+    selector:
+      app: console
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io","service.alpha.openshift.io/serving-cert-secret-name":"operator-tls"},"labels":{"name":"minio-operator"},"name":"operator","namespace":"minio-operator"},"spec":{"ports":[{"name":"https","port":4222},{"name":"http","port":4221}],"selector":{"name":"minio-operator","operator":"leader"},"type":"ClusterIP"}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+      service.alpha.openshift.io/serving-cert-secret-name: operator-tls
+    creationTimestamp: "2022-10-13T21:22:07Z"
+    labels:
+      name: minio-operator
+    name: operator
+    namespace: minio-operator
+    resourceVersion: "4880047"
+    uid: 4dcb6754-8b0a-40c0-a945-843aa4f512ef
+  spec:
+    clusterIP: 10.110.114.3
+    clusterIPs:
+    - 10.110.114.3
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 4222
+      protocol: TCP
+      targetPort: 4222
+    - name: http
+      port: 4221
+      protocol: TCP
+      targetPort: 4221
+    selector:
+      name: minio-operator
+      operator: leader
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

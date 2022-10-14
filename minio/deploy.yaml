@@ -1,0 +1,184 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"name":"console","namespace":"minio-operator"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"console"}},"template":{"metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"labels":{"app":"console"}},"spec":{"containers":[{"args":["server"],"env":[{"name":"CONSOLE_OPERATOR_MODE","value":"on"}],"image":"minio/console:v0.20.5","imagePullPolicy":"IfNotPresent","name":"console","ports":[{"containerPort":9090,"name":"http"},{"containerPort":9433,"name":"https"}],"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}}],"serviceAccountName":"console-sa"}}}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:09Z"
+    generation: 1
+    name: console
+    namespace: minio-operator
+    resourceVersion: "4880139"
+    uid: cedfed74-5e9a-403d-b448-413a175e7327
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: console
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          operator.min.io/authors: MinIO, Inc.
+          operator.min.io/license: AGPLv3
+          operator.min.io/support: https://subnet.min.io
+        creationTimestamp: null
+        labels:
+          app: console
+      spec:
+        containers:
+        - args:
+          - server
+          env:
+          - name: CONSOLE_OPERATOR_MODE
+            value: "on"
+          image: minio/console:v0.20.5
+          imagePullPolicy: IfNotPresent
+          name: console
+          ports:
+          - containerPort: 9090
+            name: http
+            protocol: TCP
+          - containerPort: 9433
+            name: https
+            protocol: TCP
+          resources: {}
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: console-sa
+        serviceAccountName: console-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2022-10-13T21:22:22Z"
+      lastUpdateTime: "2022-10-13T21:22:22Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2022-10-13T21:22:09Z"
+      lastUpdateTime: "2022-10-13T21:22:22Z"
+      message: ReplicaSet "console-c8685844b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"name":"minio-operator","namespace":"minio-operator"},"spec":{"replicas":2,"selector":{"matchLabels":{"name":"minio-operator"}},"template":{"metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"labels":{"name":"minio-operator"}},"spec":{"affinity":{"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchExpressions":[{"key":"name","operator":"In","values":["minio-operator"]}]},"topologyKey":"kubernetes.io/hostname"}]}},"containers":[{"env":[{"name":"CLUSTER_DOMAIN","value":"cluster.local"}],"image":"minio/operator:v4.5.2","imagePullPolicy":"IfNotPresent","name":"minio-operator","resources":{"requests":{"cpu":"200m","ephemeral-storage":"500Mi","memory":"256Mi"}},"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}}],"serviceAccountName":"minio-operator"}}}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    generation: 1
+    name: minio-operator
+    namespace: minio-operator
+    resourceVersion: "4888140"
+    uid: 09528940-4a17-4670-95c3-c685a0432b56
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        name: minio-operator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          operator.min.io/authors: MinIO, Inc.
+          operator.min.io/license: AGPLv3
+          operator.min.io/support: https://subnet.min.io
+        creationTimestamp: null
+        labels:
+          name: minio-operator
+      spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: name
+                  operator: In
+                  values:
+                  - minio-operator
+              topologyKey: kubernetes.io/hostname
+        containers:
+        - env:
+          - name: CLUSTER_DOMAIN
+            value: cluster.local
+          image: minio/operator:v4.5.2
+          imagePullPolicy: IfNotPresent
+          name: minio-operator
+          resources:
+            requests:
+              cpu: 200m
+              ephemeral-storage: 500Mi
+              memory: 256Mi
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: minio-operator
+        serviceAccountName: minio-operator
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2022-10-13T22:13:55Z"
+      lastUpdateTime: "2022-10-13T22:13:55Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2022-10-13T22:13:55Z"
+      lastUpdateTime: "2022-10-13T22:13:55Z"
+      message: ReplicaSet "minio-operator-7b8cbbddb4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+kind: List
+metadata:
+  resourceVersion: ""

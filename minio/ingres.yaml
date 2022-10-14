@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: minio-ingress
-  namespace: minio
+  namespace: minio-operator
 spec:
   ingressClassName: nginx
   rules:
@@ -11,9 +11,9 @@ spec:
       paths:
       - backend:
           service:
-            name: minio
+            name:  console
             port:
-              number: 9000
+              number: 9090
         path: /
         pathType: Exact
 status:

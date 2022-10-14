@@ -1,0 +1,819 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:09Z"
+    generateName: console-c8685844b-
+    labels:
+      app: console
+      pod-template-hash: c8685844b
+    name: console-c8685844b-lx7kk
+    namespace: minio-operator
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: console-c8685844b
+      uid: 73e3e682-2832-472d-afa6-8bc0ee54638f
+    resourceVersion: "4880135"
+    uid: 1aa84c55-4063-4377-bcb1-fced77d82d6c
+  spec:
+    containers:
+    - args:
+      - server
+      env:
+      - name: CONSOLE_OPERATOR_MODE
+        value: "on"
+      image: minio/console:v0.20.5
+      imagePullPolicy: IfNotPresent
+      name: console
+      ports:
+      - containerPort: 9090
+        name: http
+        protocol: TCP
+      - containerPort: 9433
+        name: https
+        protocol: TCP
+      resources: {}
+      securityContext:
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-9f5vw
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: node2
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: console-sa
+    serviceAccountName: console-sa
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-9f5vw
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:09Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:22Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:22Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:09Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://b272eeb642f56814ce891a40a252933e1f7079f93652f4c41c4be403c2a1ca1c
+      image: docker.io/minio/console:v0.20.5
+      imageID: docker.io/minio/console@sha256:1c31e55028d8530380b8a38cd143bb77e3a9f93461fe109589c3719f85309fd3
+      lastState: {}
+      name: console
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2022-10-13T21:22:22Z"
+    hostIP: 10.10.10.12
+    phase: Running
+    podIP: 10.244.2.92
+    podIPs:
+    - ip: 10.244.2.92
+    qosClass: BestEffort
+    startTime: "2022-10-13T21:22:09Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    generateName: minio-operator-7b8cbbddb4-
+    labels:
+      name: minio-operator
+      operator: leader
+      pod-template-hash: 7b8cbbddb4
+    name: minio-operator-7b8cbbddb4-95n7j
+    namespace: minio-operator
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: minio-operator-7b8cbbddb4
+      uid: 3d586f50-d1ee-4720-bc1c-00c7837f725f
+    resourceVersion: "4880167"
+    uid: b2674ac7-103c-462b-a11d-bb279f5ec985
+  spec:
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: name
+              operator: In
+              values:
+              - minio-operator
+          topologyKey: kubernetes.io/hostname
+    containers:
+    - env:
+      - name: CLUSTER_DOMAIN
+        value: cluster.local
+      image: minio/operator:v4.5.2
+      imagePullPolicy: IfNotPresent
+      name: minio-operator
+      resources:
+        requests:
+          cpu: 200m
+          ephemeral-storage: 500Mi
+          memory: 256Mi
+      securityContext:
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-nsggj
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: node2
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: minio-operator
+    serviceAccountName: minio-operator
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-nsggj
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:08Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:31Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:31Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:08Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://63b0f09b248572bee81005a188ae824a841dbf448fc780bcd94138b646631e3a
+      image: docker.io/minio/operator:v4.5.2
+      imageID: docker.io/minio/operator@sha256:bf254cbde2ed2451abe0e78a1aa7517aeea55d4b1119042b02e9c0fd3513599e
+      lastState: {}
+      name: minio-operator
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2022-10-13T21:22:31Z"
+    hostIP: 10.10.10.12
+    phase: Running
+    podIP: 10.244.2.93
+    podIPs:
+    - ip: 10.244.2.93
+    qosClass: Burstable
+    startTime: "2022-10-13T21:22:08Z"
+- apiVersion: v1
+  kind: Pod
+  metadata:
+    annotations:
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    generateName: minio-operator-7b8cbbddb4-
+    labels:
+      name: minio-operator
+      pod-template-hash: 7b8cbbddb4
+    name: minio-operator-7b8cbbddb4-s8lnl
+    namespace: minio-operator
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: ReplicaSet
+      name: minio-operator-7b8cbbddb4
+      uid: 3d586f50-d1ee-4720-bc1c-00c7837f725f
+    resourceVersion: "4888138"
+    uid: 933f60ae-ca3b-4cae-8b83-ecb0f8f4b050
+  spec:
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+            - key: name
+              operator: In
+              values:
+              - minio-operator
+          topologyKey: kubernetes.io/hostname
+    containers:
+    - env:
+      - name: CLUSTER_DOMAIN
+        value: cluster.local
+      image: minio/operator:v4.5.2
+      imagePullPolicy: IfNotPresent
+      name: minio-operator
+      resources:
+        requests:
+          cpu: 200m
+          ephemeral-storage: 500Mi
+          memory: 256Mi
+      securityContext:
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+      - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+        name: kube-api-access-vnd2m
+        readOnly: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    nodeName: node3
+    preemptionPolicy: PreemptLowerPriority
+    priority: 0
+    restartPolicy: Always
+    schedulerName: default-scheduler
+    securityContext: {}
+    serviceAccount: minio-operator
+    serviceAccountName: minio-operator
+    terminationGracePeriodSeconds: 30
+    tolerations:
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 300
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 300
+    volumes:
+    - name: kube-api-access-vnd2m
+      projected:
+        defaultMode: 420
+        sources:
+        - serviceAccountToken:
+            expirationSeconds: 3607
+            path: token
+        - configMap:
+            items:
+            - key: ca.crt
+              path: ca.crt
+            name: kube-root-ca.crt
+        - downwardAPI:
+            items:
+            - fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+              path: namespace
+  status:
+    conditions:
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:07Z"
+      status: "True"
+      type: Initialized
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T22:13:54Z"
+      status: "True"
+      type: Ready
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T22:13:54Z"
+      status: "True"
+      type: ContainersReady
+    - lastProbeTime: null
+      lastTransitionTime: "2022-10-13T21:22:08Z"
+      status: "True"
+      type: PodScheduled
+    containerStatuses:
+    - containerID: containerd://50724229acfb92b2304a7de5882bb09b4759b7abfd82fbd9ad8f96dc0533305d
+      image: docker.io/minio/operator:v4.5.2
+      imageID: docker.io/minio/operator@sha256:bf254cbde2ed2451abe0e78a1aa7517aeea55d4b1119042b02e9c0fd3513599e
+      lastState: {}
+      name: minio-operator
+      ready: true
+      restartCount: 0
+      started: true
+      state:
+        running:
+          startedAt: "2022-10-13T22:13:54Z"
+    hostIP: 10.10.10.13
+    phase: Running
+    podIP: 10.244.1.130
+    podIPs:
+    - ip: 10.244.1.130
+    qosClass: Burstable
+    startTime: "2022-10-13T21:22:07Z"
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"labels":{"name":"console"},"name":"console","namespace":"minio-operator"},"spec":{"ports":[{"name":"http","port":9090},{"name":"https","port":9443}],"selector":{"app":"console"}}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    labels:
+      name: console
+    name: console
+    namespace: minio-operator
+    resourceVersion: "4880080"
+    uid: cf0b6315-9aa1-4116-b1ca-1ca8dd3ae5be
+  spec:
+    clusterIP: 10.96.138.33
+    clusterIPs:
+    - 10.96.138.33
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: http
+      port: 9090
+      protocol: TCP
+      targetPort: 9090
+    - name: https
+      port: 9443
+      protocol: TCP
+      targetPort: 9443
+    selector:
+      app: console
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io","service.alpha.openshift.io/serving-cert-secret-name":"operator-tls"},"labels":{"name":"minio-operator"},"name":"operator","namespace":"minio-operator"},"spec":{"ports":[{"name":"https","port":4222},{"name":"http","port":4221}],"selector":{"name":"minio-operator","operator":"leader"},"type":"ClusterIP"}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+      service.alpha.openshift.io/serving-cert-secret-name: operator-tls
+    creationTimestamp: "2022-10-13T21:22:07Z"
+    labels:
+      name: minio-operator
+    name: operator
+    namespace: minio-operator
+    resourceVersion: "4880047"
+    uid: 4dcb6754-8b0a-40c0-a945-843aa4f512ef
+  spec:
+    clusterIP: 10.110.114.3
+    clusterIPs:
+    - 10.110.114.3
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - name: https
+      port: 4222
+      protocol: TCP
+      targetPort: 4222
+    - name: http
+      port: 4221
+      protocol: TCP
+      targetPort: 4221
+    selector:
+      name: minio-operator
+      operator: leader
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"name":"console","namespace":"minio-operator"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"console"}},"template":{"metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"labels":{"app":"console"}},"spec":{"containers":[{"args":["server"],"env":[{"name":"CONSOLE_OPERATOR_MODE","value":"on"}],"image":"minio/console:v0.20.5","imagePullPolicy":"IfNotPresent","name":"console","ports":[{"containerPort":9090,"name":"http"},{"containerPort":9433,"name":"https"}],"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}}],"serviceAccountName":"console-sa"}}}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:09Z"
+    generation: 1
+    name: console
+    namespace: minio-operator
+    resourceVersion: "4880139"
+    uid: cedfed74-5e9a-403d-b448-413a175e7327
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: console
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          operator.min.io/authors: MinIO, Inc.
+          operator.min.io/license: AGPLv3
+          operator.min.io/support: https://subnet.min.io
+        creationTimestamp: null
+        labels:
+          app: console
+      spec:
+        containers:
+        - args:
+          - server
+          env:
+          - name: CONSOLE_OPERATOR_MODE
+            value: "on"
+          image: minio/console:v0.20.5
+          imagePullPolicy: IfNotPresent
+          name: console
+          ports:
+          - containerPort: 9090
+            name: http
+            protocol: TCP
+          - containerPort: 9433
+            name: https
+            protocol: TCP
+          resources: {}
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: console-sa
+        serviceAccountName: console-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2022-10-13T21:22:22Z"
+      lastUpdateTime: "2022-10-13T21:22:22Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2022-10-13T21:22:09Z"
+      lastUpdateTime: "2022-10-13T21:22:22Z"
+      message: ReplicaSet "console-c8685844b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"name":"minio-operator","namespace":"minio-operator"},"spec":{"replicas":2,"selector":{"matchLabels":{"name":"minio-operator"}},"template":{"metadata":{"annotations":{"operator.min.io/authors":"MinIO, Inc.","operator.min.io/license":"AGPLv3","operator.min.io/support":"https://subnet.min.io"},"labels":{"name":"minio-operator"}},"spec":{"affinity":{"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchExpressions":[{"key":"name","operator":"In","values":["minio-operator"]}]},"topologyKey":"kubernetes.io/hostname"}]}},"containers":[{"env":[{"name":"CLUSTER_DOMAIN","value":"cluster.local"}],"image":"minio/operator:v4.5.2","imagePullPolicy":"IfNotPresent","name":"minio-operator","resources":{"requests":{"cpu":"200m","ephemeral-storage":"500Mi","memory":"256Mi"}},"securityContext":{"runAsGroup":1000,"runAsNonRoot":true,"runAsUser":1000}}],"serviceAccountName":"minio-operator"}}}}
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    generation: 1
+    name: minio-operator
+    namespace: minio-operator
+    resourceVersion: "4888140"
+    uid: 09528940-4a17-4670-95c3-c685a0432b56
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        name: minio-operator
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          operator.min.io/authors: MinIO, Inc.
+          operator.min.io/license: AGPLv3
+          operator.min.io/support: https://subnet.min.io
+        creationTimestamp: null
+        labels:
+          name: minio-operator
+      spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: name
+                  operator: In
+                  values:
+                  - minio-operator
+              topologyKey: kubernetes.io/hostname
+        containers:
+        - env:
+          - name: CLUSTER_DOMAIN
+            value: cluster.local
+          image: minio/operator:v4.5.2
+          imagePullPolicy: IfNotPresent
+          name: minio-operator
+          resources:
+            requests:
+              cpu: 200m
+              ephemeral-storage: 500Mi
+              memory: 256Mi
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: minio-operator
+        serviceAccountName: minio-operator
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2022-10-13T22:13:55Z"
+      lastUpdateTime: "2022-10-13T22:13:55Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2022-10-13T22:13:55Z"
+      lastUpdateTime: "2022-10-13T22:13:55Z"
+      message: ReplicaSet "minio-operator-7b8cbbddb4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "1"
+      deployment.kubernetes.io/max-replicas: "2"
+      deployment.kubernetes.io/revision: "1"
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:09Z"
+    generation: 1
+    labels:
+      app: console
+      pod-template-hash: c8685844b
+    name: console-c8685844b
+    namespace: minio-operator
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: console
+      uid: cedfed74-5e9a-403d-b448-413a175e7327
+    resourceVersion: "4880136"
+    uid: 73e3e682-2832-472d-afa6-8bc0ee54638f
+  spec:
+    replicas: 1
+    selector:
+      matchLabels:
+        app: console
+        pod-template-hash: c8685844b
+    template:
+      metadata:
+        annotations:
+          operator.min.io/authors: MinIO, Inc.
+          operator.min.io/license: AGPLv3
+          operator.min.io/support: https://subnet.min.io
+        creationTimestamp: null
+        labels:
+          app: console
+          pod-template-hash: c8685844b
+      spec:
+        containers:
+        - args:
+          - server
+          env:
+          - name: CONSOLE_OPERATOR_MODE
+            value: "on"
+          image: minio/console:v0.20.5
+          imagePullPolicy: IfNotPresent
+          name: console
+          ports:
+          - containerPort: 9090
+            name: http
+            protocol: TCP
+          - containerPort: 9433
+            name: https
+            protocol: TCP
+          resources: {}
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: console-sa
+        serviceAccountName: console-sa
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    fullyLabeledReplicas: 1
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+- apiVersion: apps/v1
+  kind: ReplicaSet
+  metadata:
+    annotations:
+      deployment.kubernetes.io/desired-replicas: "2"
+      deployment.kubernetes.io/max-replicas: "3"
+      deployment.kubernetes.io/revision: "1"
+      operator.min.io/authors: MinIO, Inc.
+      operator.min.io/license: AGPLv3
+      operator.min.io/support: https://subnet.min.io
+    creationTimestamp: "2022-10-13T21:22:08Z"
+    generation: 1
+    labels:
+      name: minio-operator
+      pod-template-hash: 7b8cbbddb4
+    name: minio-operator-7b8cbbddb4
+    namespace: minio-operator
+    ownerReferences:
+    - apiVersion: apps/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Deployment
+      name: minio-operator
+      uid: 09528940-4a17-4670-95c3-c685a0432b56
+    resourceVersion: "4888139"
+    uid: 3d586f50-d1ee-4720-bc1c-00c7837f725f
+  spec:
+    replicas: 2
+    selector:
+      matchLabels:
+        name: minio-operator
+        pod-template-hash: 7b8cbbddb4
+    template:
+      metadata:
+        annotations:
+          operator.min.io/authors: MinIO, Inc.
+          operator.min.io/license: AGPLv3
+          operator.min.io/support: https://subnet.min.io
+        creationTimestamp: null
+        labels:
+          name: minio-operator
+          pod-template-hash: 7b8cbbddb4
+      spec:
+        affinity:
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: name
+                  operator: In
+                  values:
+                  - minio-operator
+              topologyKey: kubernetes.io/hostname
+        containers:
+        - env:
+          - name: CLUSTER_DOMAIN
+            value: cluster.local
+          image: minio/operator:v4.5.2
+          imagePullPolicy: IfNotPresent
+          name: minio-operator
+          resources:
+            requests:
+              cpu: 200m
+              ephemeral-storage: 500Mi
+              memory: 256Mi
+          securityContext:
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: minio-operator
+        serviceAccountName: minio-operator
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 2
+    fullyLabeledReplicas: 2
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+kind: List
+metadata:
+  resourceVersion: ""
