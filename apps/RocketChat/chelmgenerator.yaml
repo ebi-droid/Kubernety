@@ -1,0 +1,11 @@
+apiVersion: builtin
+kind: HelmChartInflationGenerator
+metadata:
+  name: myMap
+name: rocketchat
+repo: https://rocketchat.github.io/helm-charts
+version: 5.1.0
+releaseName: test
+namespace: default
+valuesFile: values.yaml
+IncludeCRDs: true
