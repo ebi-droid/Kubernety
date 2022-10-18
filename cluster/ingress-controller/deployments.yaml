@@ -48,6 +48,7 @@ items:
           - --election-id=ingress-controller-leader
           - --controller-class=k8s.io/ingress-nginx
           - --ingress-class=nginx
+          - --enable-ssl-passthrough
           - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
           - --validating-webhook=:8443
           - --validating-webhook-certificate=/usr/local/certificates/cert

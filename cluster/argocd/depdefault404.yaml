@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: default404
+  name: default404
+  namespace: argocd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: default404
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: default404
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: default404
+  name: default404
+  namespace: argocd
+spec:
+  ports:
+  - port: 8181
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: default404
+status:
+  loadBalancer: {}
+
