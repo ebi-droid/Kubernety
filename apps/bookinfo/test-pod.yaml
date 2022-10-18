@@ -2,16 +2,16 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: test-pod
+  name: test-pod2
 spec:
   containers:
-  - name: test-pod
+  - name: test-pod2
     image: gcr.io/google_containers/busybox:1.24
     command:
       - "/bin/sh"
     args:
       - "-c"
-      - "touch /mnt/SUCCESS && exit 0 || exit 1"
+      - "touch /mnt/SUCCESS-minio && exit 0 || exit 1"
     volumeMounts:
       - name: minio-pvc
         mountPath: "/mnt"
